@@ -59,6 +59,9 @@ type Staked @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  totalDeposited: BigInt!
+  totalWithdrawn: BigInt!
+  currentStakedAmount: BigInt!
 }
 
 type Unpaused @entity(immutable: true) {
