@@ -1,0 +1,47 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: BSCStakers
+    network: bsc
+    source:
+      address: "0x614A6411C1171b6B5f68b989B71D6E78f0736b81"
+      abi: BSCStakers
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Paused
+        - RewardPaid
+        - RewardRestaked
+        - RewardTokensRecovered
+        - RewardsSet
+        - Staked
+        - Unpaused
+        - Withdrawn
+      abis:
+        - name: BSCStakers
+          file: ./abis/BSCStakers.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: RewardRestaked(indexed address,uint256,uint256)
+          handler: handleRewardRestaked
+        - event: RewardTokensRecovered(uint256)
+          handler: handleRewardTokensRecovered
+        - event: RewardsSet(uint256,uint256,uint256)
+          handler: handleRewardsSet
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/bsc-stakers.ts
